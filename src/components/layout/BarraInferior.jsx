@@ -1,8 +1,7 @@
 import React from "react";
-import { BotaoInferior } from "./BotaoInferior"; // Importando o componente novo
+import { BotaoInferior } from "./BotaoInferior";
 
 export function BarraInferior({ categories, activeTab, onTabChange }) {
-  // Pegamos apenas os 5 primeiros itens para não quebrar o layout no celular
   const mobileCategories = categories.slice(0, 5);
 
   return (

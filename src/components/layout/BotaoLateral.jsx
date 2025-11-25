@@ -1,6 +1,5 @@
 import React from 'react';
 
-// Recebemos as propriedades (props) para preencher o botão
 export function BotaoLateral({ icon: Icon, label, isActive, onClick }) {
   return (
     <button
@@ -11,13 +10,10 @@ export function BotaoLateral({ icon: Icon, label, isActive, onClick }) {
           : 'text-gray-400 hover:bg-gray-800 hover:text-white'
         }`}
     >
-      {/* O Ícone */}
       <Icon size={24} className={isActive ? 'stroke-2' : 'stroke-1'} />
       
-      {/* O Texto (Só aparece em telas grandes LG) */}
       <span className="hidden lg:block text-sm">{label}</span>
       
-      {/* O Tooltip (Aparece quando o texto está escondido no modo Tablet) */}
       <span className="absolute left-16 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 lg:group-hover:opacity-0 pointer-events-none transition-opacity whitespace-nowrap z-50 shadow-md">
         {label}
       </span>

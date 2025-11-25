@@ -7,7 +7,6 @@ export function BotaoInferior({ icon: Icon, label, isActive, onClick }) {
       className={`flex flex-col items-center justify-end gap-1 p-1 rounded-lg transition-all w-full
         ${isActive ? "text-brand-black" : "text-gray-400"}`}
     >
-      {/* Container do Ícone (Sobe e ganha cor quando ativo) */}
       <div
         className={`p-1 rounded-xl transition-all duration-300 ease-out
           ${
@@ -19,7 +18,6 @@ export function BotaoInferior({ icon: Icon, label, isActive, onClick }) {
         <Icon size={22} className={isActive ? "stroke-2" : "stroke-1"} />
       </div>
 
-      {/* Texto (Fica negrito quando ativo) */}
       <span
         className={`text-[10px] font-medium transition-all duration-300
           ${isActive ? "font-bold translate-y-[-2px]" : ""}`}
