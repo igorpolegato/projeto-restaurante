@@ -111,7 +111,7 @@ export const products = [
     name: "Heineken 600ml",
     description: "Garrafa 600ml. Gelada trincando.",
     price: 18.0,
-    image: "/produtos/heineken-600.jpg",
+    image: "/produtos/heineken-600.png",
     category: "cervejas",
   },
   {
@@ -119,7 +119,7 @@ export const products = [
     name: "Original 600ml",
     description: "Garrafa 600ml. A clássica.",
     price: 16.0,
-    image: "/produtos/original-600.jpg",
+    image: "/produtos/original-600.png",
     category: "cervejas",
   },
   {
@@ -127,7 +127,7 @@ export const products = [
     name: "Amstel 600ml",
     description: "Garrafa 600ml. Puro malte.",
     price: 14.0,
-    image: "/produtos/amstel-600.jpg",
+    image: "/produtos/amstel-600.png",
     category: "cervejas",
   },
   {
@@ -135,7 +135,7 @@ export const products = [
     name: "Antarctica Boa 600ml",
     description: "Garrafa 600ml. Pilsen.",
     price: 12.0,
-    image: "/produtos/boa-600.jpg",
+    image: "/produtos/boa-600.png",
     category: "cervejas",
   },
   {
@@ -143,7 +143,7 @@ export const products = [
     name: "Heineken Long Neck",
     description: "330ml.",
     price: 12.0,
-    image: "/produtos/heineken-ln.jpg",
+    image: "/produtos/heineken-ln.png",
     category: "cervejas",
   },
   {
@@ -151,7 +151,7 @@ export const products = [
     name: "Corona Long Neck",
     description: "330ml. Acompanha limão.",
     price: 12.0,
-    image: "/produtos/corona-ln.jpg",
+    image: "/produtos/corona-ln.png",
     category: "cervejas",
   },
   {
@@ -159,7 +159,7 @@ export const products = [
     name: "Budweiser Long Neck",
     description: "330ml.",
     price: 12.0,
-    image: "/produtos/bud-ln.jpg",
+    image: "/produtos/bud-ln.png",
     category: "cervejas",
   },
 
@@ -169,7 +169,7 @@ export const products = [
     name: "Copão de Whisky",
     description: "Dose generosa com gelo de água de coco (opcional).",
     price: 26.0,
-    image: "/produtos/whisky.jpg",
+    image: "/produtos/whisky.png",
     category: "drinks",
   },
   {
@@ -177,7 +177,7 @@ export const products = [
     name: "Copão Licor 43",
     description: "Doce e aromático, servido com bastante gelo.",
     price: 36.0,
-    image: "/produtos/licor43.jpg",
+    image: "/produtos/licor43.png",
     category: "drinks",
   },
   {
@@ -185,7 +185,7 @@ export const products = [
     name: "Caipirinha de Limão",
     description: "Clássica com Cachaça, limão e açúcar.",
     price: 20.0,
-    image: "/produtos/caipirinha.jpg",
+    image: "/produtos/caipirinha.png",
     category: "drinks",
   },
   {
@@ -193,7 +193,7 @@ export const products = [
     name: "Caipiroska",
     description: "Feita com Vodka e limão.",
     price: 25.0,
-    image: "/produtos/caipiroska.jpg",
+    image: "/produtos/caipiroska.png",
     category: "drinks",
   },
 
@@ -204,7 +204,7 @@ export const products = [
     description:
       "Até 4 complementos: Leite em pó, Leite condensado, Granola, Paçoca, Fruta do dia.",
     price: 18.9,
-    image: "/produtos/acai.jpg",
+    image: "/produtos/acai.png",
     category: "sobremesas",
   },
   {
@@ -212,7 +212,7 @@ export const products = [
     name: "Salada de Frutas (P)",
     description: "Mix de frutas frescas da estação. Pote pequeno.",
     price: 12.0,
-    image: "/produtos/salada-frutas.jpg",
+    image: "/produtos/salada-frutas.png",
     category: "sobremesas",
   },
   {
@@ -220,7 +220,7 @@ export const products = [
     name: "Salada de Frutas (G)",
     description: "Mix de frutas frescas da estação. Pote grande.",
     price: 16.0,
-    image: "/produtos/salada-frutas.jpg",
+    image: "/produtos/salada-frutas.png",
     category: "sobremesas",
   },
 
@@ -230,7 +230,7 @@ export const products = [
     name: "Suco de Laranja",
     description: "Natural, feito na hora. Copo grande.",
     price: 12.0,
-    image: "/produtos/suco-laranja.jpg",
+    image: "/produtos/suco-laranja.png",
     category: "bebidas",
   },
   {
@@ -238,7 +238,7 @@ export const products = [
     name: "Refrigerante Lata",
     description: "Coca-cola, Guaraná, Sprite (350ml).",
     price: 7.0,
-    image: "/produtos/refri-lata.jpg",
+    image: "/produtos/refri-lata.png",
     category: "bebidas",
   },
   {
@@ -246,7 +246,7 @@ export const products = [
     name: "Refrigerante KS",
     description: "Garrafa de vidro 290ml.",
     price: 6.0,
-    image: "/produtos/refri-ks.jpg",
+    image: "/produtos/refri-ks.png",
     category: "bebidas",
   },
   {
@@ -254,7 +254,7 @@ export const products = [
     name: "Gatorade",
     description: "Isotônico para repor energias.",
     price: 9.5,
-    image: "/produtos/gatorade.jpg",
+    image: "/produtos/gatorade.png",
     category: "bebidas",
   },
   {
@@ -262,7 +262,7 @@ export const products = [
     name: "H2OH!",
     description: "Garrafa 500ml.",
     price: 9.5,
-    image: "/produtos/h2oh.jpg",
+    image: "/produtos/h2oh.png",
     category: "bebidas",
   },
   {
@@ -270,7 +270,7 @@ export const products = [
     name: "Energético Monster",
     description: "Lata 473ml.",
     price: 15.5,
-    image: "/produtos/monster.jpg",
+    image: "/produtos/monster.png",
     category: "bebidas",
   },
   {
@@ -278,7 +278,7 @@ export const products = [
     name: "Energético RedBull",
     description: "Lata 250ml.",
     price: 16.5,
-    image: "/produtos/redbull.jpg",
+    image: "/produtos/redbull.png",
     category: "bebidas",
   },
   {
@@ -286,7 +286,7 @@ export const products = [
     name: "Água Mineral",
     description: "Garrafa 500ml sem gás.",
     price: 4.0,
-    image: "/produtos/agua.jpg",
+    image: "/produtos/agua.png",
     category: "bebidas",
   },
   {
@@ -294,7 +294,7 @@ export const products = [
     name: "Água com Gás",
     description: "Garrafa 500ml.",
     price: 5.0,
-    image: "/produtos/agua-gas.jpg",
+    image: "/produtos/agua-gas.png",
     category: "bebidas",
   },
 ];
