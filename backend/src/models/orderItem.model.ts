@@ -38,6 +38,8 @@ OrderItem.init(
     {
         sequelize: sequelizeModel,
         tableName: "tb_order_item",
+        timestamps: false,
+        underscored: true,
     }
 )
 

@@ -1,19 +1,23 @@
 import { DataTypes, Model, InferAttributes, InferCreationAttributes, CreationOptional } from "sequelize";
 import { sequelizeModel } from ".";
 
-export interface CustomerAttributes {
+export interface UserAttributes {
     id: number;
     name: string;
-    status?: string;
+    login: string;
+    password: string;
+    type: string;
 }
 
-export class Customer extends Model<InferAttributes<Customer>, InferCreationAttributes<Customer>> implements CustomerAttributes {
+export class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> implements UserAttributes {
     declare id: CreationOptional<number>
-    declare name: string;
-    declare status?: string;
+    declare name: string
+    declare login: string
+    declare password: string
+    declare type: string
 }
 
-Customer.init(
+User.init(
     {
         id: {
             type: DataTypes.INTEGER,
@@ -24,18 +28,25 @@ Customer.init(
             type: DataTypes.STRING,
             allowNull: false,
         },
-        status: {
+        login: {
             type: DataTypes.STRING,
             allowNull: false,
-            defaultValue: "active"
+        },
+        password: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        type: {
+            type: DataTypes.STRING,
+            allowNull: false,
         },
     },
     {
         sequelize: sequelizeModel,
-        tableName: "tb_customer",
+        tableName: "tb_user",
         timestamps: false,
-        underscored: true,
+        underscored: true
     }
 )
 
-export default Customer;
+export default User;

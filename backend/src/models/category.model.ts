@@ -1,19 +1,20 @@
 import { DataTypes, Model, InferAttributes, InferCreationAttributes, CreationOptional } from "sequelize";
 import { sequelizeModel } from ".";
 
-export interface CustomerAttributes {
+import Item from "./item.model";
+import CategoryItem from "./categoyItem.model";
+
+export interface CategoryAttributes {
     id: number;
     name: string;
-    status?: string;
 }
 
-export class Customer extends Model<InferAttributes<Customer>, InferCreationAttributes<Customer>> implements CustomerAttributes {
+export class Category extends Model<InferAttributes<Category>, InferCreationAttributes<Category>> implements CategoryAttributes {
     declare id: CreationOptional<number>
     declare name: string;
-    declare status?: string;
 }
 
-Customer.init(
+Category.init(
     {
         id: {
             type: DataTypes.INTEGER,
@@ -24,18 +25,25 @@ Customer.init(
             type: DataTypes.STRING,
             allowNull: false,
         },
-        status: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            defaultValue: "active"
-        },
     },
     {
         sequelize: sequelizeModel,
-        tableName: "tb_customer",
+        tableName: "tb_category",
         timestamps: false,
         underscored: true,
     }
 )
 
-export default Customer;
+Category.belongsToMany(Item, {
+    through: CategoryItem,
+    foreignKey: "id_category",
+    as: "items"
+});
+
+Item.belongsToMany(Category, {
+    through: CategoryItem,
+    foreignKey: "id_item",
+    as: "categories"
+});
+
+export default Category;

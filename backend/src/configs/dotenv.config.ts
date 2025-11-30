@@ -1,7 +1,11 @@
-function getEnv(name: string): string {
+import dotenv from "dotenv"
+dotenv.config()
+
+function getEnv(name: string): string | null {
     const value = process.env[name]
     if (!value) {
-        throw new Error(`Missing environment variable: ${name}`)
+        return null;
+        // throw new Error(`Missing environment variable: ${name}`)
     }
     return value
 }
