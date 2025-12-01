@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { Flame, Clock } from "lucide-react";
 
-// Componentes
+// Componentes de Layout
 import { Header } from "../components/layout/Header";
 import { BarraLateral } from "../components/layout/BarraLateral";
 import { BarraInferior } from "../components/layout/BarraInferior";
+
+// Componentes de Produto e UI
 import { CardProduto } from "../components/produto/CardProduto";
 import { BannerPromocional } from "../components/ui/BannerPromocional";
 import { BuscaMobile } from "../components/ui/BuscaMobile";
@@ -24,12 +26,21 @@ export function TelaCliente() {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+
+  // Estado da Sessão (Mesa/Cliente)
   const [sessionData, setSessionData] = useState(null);
 
-  // Se não tiver sessão iniciada, mostra APENAS a tela de identificação
+  // 1. Se não tiver sessão iniciada, mostra a tela de identificação
   if (!sessionData) {
     return <Identificacao onStart={(data) => setSessionData(data)} />;
   }
+
+  // 2. Prepara a lista completa de categorias para os menus (Lateral e Inferior)
+  // Adicionamos manualmente a opção "Meus Pedidos" ao final da lista vinda do DB
+  const categoriasCompletas = [
+    ...categories,
+    { id: "meus_pedidos", label: "Pedidos", icon: Clock },
+  ];
 
   // --- LÓGICA DE FILTRO ---
   const filteredProducts =
@@ -40,6 +51,7 @@ export function TelaCliente() {
   // --- LÓGICA DO CARRINHO ---
   const handleAddToCart = (product, quantity = 1, observation = "") => {
     setCart((prevCart) => {
+      // Verifica se o item já existe no carrinho (pelo ID)
       const existingItem = prevCart.find((item) => item.id === product.id);
       if (existingItem) {
         return prevCart.map((item) =>
@@ -73,6 +85,7 @@ export function TelaCliente() {
     setIsConfirmOpen(true);
   };
 
+  // --- ENVIO DO PEDIDO ---
   const handleConfirmOrder = async () => {
     const novoPedido = {
       mesa: sessionData.mesa,
@@ -81,14 +94,14 @@ export function TelaCliente() {
       total: cart.reduce((acc, item) => acc + item.price * item.quantity, 0),
     };
 
-    // 1. Salva no "Backend" (Service)
+    // Salva no Serviço (localStorage/API)
     await criarPedido(novoPedido);
 
-    // 2. Limpa o carrinho e fecha modais
+    // Limpa e Redireciona
     setCart([]);
     setIsConfirmOpen(false);
 
-    // 3. Redireciona o utilizador para a aba de acompanhamento
+    // Vai para a tela de acompanhamento
     setActiveTab("meus_pedidos");
   };
 
@@ -96,7 +109,7 @@ export function TelaCliente() {
 
   return (
     <div className="flex flex-col md:flex-row h-screen bg-brand-gray font-sans text-brand-black overflow-hidden">
-      {/* Modais */}
+      {/* --- MODAIS (Overlays) --- */}
       <ModalConfirmacao
         isOpen={isConfirmOpen}
         onClose={() => {
@@ -106,6 +119,7 @@ export function TelaCliente() {
         onConfirm={handleConfirmOrder}
         cartItems={cart}
       />
+
       <Carrinho
         isOpen={isCartOpen}
         onClose={() => setIsCartOpen(false)}
@@ -114,6 +128,7 @@ export function TelaCliente() {
         onRemoveItem={handleRemoveItem}
         onCheckout={handleRequestCheckout}
       />
+
       <ModalDetalhes
         product={selectedProduct}
         isOpen={!!selectedProduct}
@@ -121,19 +136,15 @@ export function TelaCliente() {
         onAddToCart={handleAddToCart}
       />
 
-      {/* Layout */}
+      {/* --- LAYOUT SIDEBAR (Desktop/Tablet) --- */}
       <BarraLateral
-        // Adicionamos manualmente a opção "Meus Pedidos" aqui se não existir no DB
-        categories={[
-          ...categories,
-          { id: "meus_pedidos", label: "Meus Pedidos", icon: Clock },
-        ]}
+        categories={categoriasCompletas}
         activeTab={activeTab}
         onTabChange={setActiveTab}
       />
 
+      {/* --- CONTEÚDO PRINCIPAL --- */}
       <div className="flex-1 flex flex-col h-full relative w-full">
-        {/* --- ATUALIZAÇÃO: Passando o nome do cliente --- */}
         <Header
           cartCount={cartCount}
           onOpenCart={() => setIsCartOpen(true)}
@@ -141,13 +152,14 @@ export function TelaCliente() {
         />
 
         <main className="flex-1 overflow-y-auto p-4 md:p-8 pb-24 md:pb-8 bg-brand-gray scroll-smooth">
-          {/* --- RENDERIZAÇÃO CONDICIONAL DA NOVA TELA --- */}
+          {/* Renderização Condicional: Meus Pedidos OU Cardápio */}
           {activeTab === "meus_pedidos" ? (
             <MeusPedidos mesa={sessionData.mesa} />
           ) : (
-            /* --- CONTEÚDO PADRÃO DO CARDÁPIO --- */
             <>
               <BuscaMobile />
+
+              {/* Info da Mesa no Mobile */}
               {activeTab === "home" && (
                 <div className="mb-4 bg-white p-3 rounded-xl shadow-sm border border-gray-100 flex justify-between items-center md:hidden">
                   <span className="text-sm text-gray-500 font-bold uppercase tracking-wide font-sans">
@@ -158,6 +170,7 @@ export function TelaCliente() {
                   </span>
                 </div>
               )}
+
               {activeTab === "home" && <BannerPromocional />}
 
               <section>
@@ -192,12 +205,10 @@ export function TelaCliente() {
           )}
         </main>
 
+        {/* --- LAYOUT BARRA INFERIOR (Mobile) --- */}
         <BarraInferior
-          // Adiciona 'Meus Pedidos' na barra inferior
-          categories={[
-            ...categories.slice(0, 4),
-            { id: "meus_pedidos", label: "Pedidos", icon: Clock },
-          ]}
+          // Passamos a lista completa. O componente agora tem scroll horizontal.
+          categories={categoriasCompletas}
           activeTab={activeTab}
           onTabChange={setActiveTab}
         />

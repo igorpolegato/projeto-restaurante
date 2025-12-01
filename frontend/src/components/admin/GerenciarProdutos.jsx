@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Plus, Pencil, Trash2, X, Search, Image as ImageIcon, Save } from "lucide-react";
+import { Plus, Pencil, Trash2, X, Search, Save } from "lucide-react";
 import { categories, products as initialProducts } from "../../data/db";
 
 export function GerenciarProdutos() {
@@ -8,15 +8,14 @@ export function GerenciarProdutos() {
   const [searchTerm, setSearchTerm] = useState(""); // Busca
   const [isModalOpen, setIsModalOpen] = useState(false); // Controle do Modal
   const [isEditing, setIsEditing] = useState(false); // Estamos editando ou criando?
-  
-  // Estado do Formulário
+
+  // Estado do Formulário (Removido campo 'image')
   const [formData, setFormData] = useState({
     id: null,
     name: "",
     description: "",
     price: "",
     category: "lanches", // Valor padrão
-    image: "",
   });
 
   // --- FILTROS ---
@@ -29,7 +28,13 @@ export function GerenciarProdutos() {
   // 1. Abrir Modal para CRIAR
   const handleOpenCreate = () => {
     setIsEditing(false);
-    setFormData({ id: null, name: "", description: "", price: "", category: "lanches", image: "" });
+    setFormData({
+      id: null,
+      name: "",
+      description: "",
+      price: "",
+      category: "lanches",
+    });
     setIsModalOpen(true);
   };
 
@@ -59,7 +64,9 @@ export function GerenciarProdutos() {
 
     if (isEditing) {
       // Lógica de Atualização
-      setItens(itens.map((item) => (item.id === formData.id ? formData : item)));
+      setItens(
+        itens.map((item) => (item.id === formData.id ? formData : item))
+      );
     } else {
       // Lógica de Criação
       const newItem = {
@@ -76,15 +83,18 @@ export function GerenciarProdutos() {
   // --- RENDERIZAÇÃO ---
   return (
     <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
-      
       {/* CABEÇALHO DA SEÇÃO */}
       <div className="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
         <div>
-          <h2 className="text-2xl font-bold font-montserrat text-slate-800">Cardápio</h2>
-          <p className="text-slate-500 text-sm">Gerencie os itens disponíveis para os clientes</p>
+          <h2 className="text-2xl font-bold font-montserrat text-slate-800">
+            Cardápio
+          </h2>
+          <p className="text-slate-500 text-sm">
+            Gerencie os itens disponíveis para os clientes
+          </p>
         </div>
-        
-        <button 
+
+        <button
           onClick={handleOpenCreate}
           className="bg-brand-yellow text-slate-900 px-4 py-2 rounded-lg font-bold flex items-center gap-2 hover:bg-yellow-400 transition-colors"
         >
@@ -95,10 +105,13 @@ export function GerenciarProdutos() {
 
       {/* BARRA DE BUSCA */}
       <div className="relative mb-6">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
-        <input 
-          type="text" 
-          placeholder="Buscar item por nome..." 
+        <Search
+          className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+          size={20}
+        />
+        <input
+          type="text"
+          placeholder="Buscar item por nome..."
           className="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-brand-yellow focus:border-transparent outline-none"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
@@ -118,20 +131,18 @@ export function GerenciarProdutos() {
           </thead>
           <tbody>
             {filteredItens.map((item) => (
-              <tr key={item.id} className="border-b border-gray-100 hover:bg-gray-50 transition-colors">
-                <td className="py-3 px-4 flex items-center gap-3">
-                  <div className="w-10 h-10 bg-gray-200 rounded-lg overflow-hidden shrink-0">
-                    {item.image && item.image.startsWith('/') ? (
-                      <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center text-gray-400">
-                        <ImageIcon size={16} />
-                      </div>
-                    )}
-                  </div>
+              <tr
+                key={item.id}
+                className="border-b border-gray-100 hover:bg-gray-50 transition-colors"
+              >
+                <td className="py-3 px-4">
                   <div>
-                    <p className="font-bold text-slate-800">{item.name}</p>
-                    <p className="text-xs text-gray-500 truncate max-w-[200px]">{item.description}</p>
+                    <p className="font-bold text-slate-800 font-montserrat">
+                      {item.name}
+                    </p>
+                    <p className="text-xs text-gray-500 truncate max-w-[250px]">
+                      {item.description}
+                    </p>
                   </div>
                 </td>
                 <td className="py-3 px-4">
@@ -140,18 +151,22 @@ export function GerenciarProdutos() {
                   </span>
                 </td>
                 <td className="py-3 px-4 font-montserrat font-bold text-slate-800">
-                  R$ {item.price.toString().replace('.', ',')}
+                  R$ {item.price.toString().replace(".", ",")}
                 </td>
                 <td className="py-3 px-4 text-right">
                   <div className="flex items-center justify-end gap-2">
-                    <button 
+                    <button
                       onClick={() => handleOpenEdit(item)}
-                      className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors" title="Editar">
+                      className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                      title="Editar"
+                    >
                       <Pencil size={18} />
                     </button>
-                    <button 
+                    <button
                       onClick={() => handleDelete(item.id)}
-                      className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors" title="Excluir">
+                      className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                      title="Excluir"
+                    >
                       <Trash2 size={18} />
                     </button>
                   </div>
@@ -160,7 +175,7 @@ export function GerenciarProdutos() {
             ))}
           </tbody>
         </table>
-        
+
         {filteredItens.length === 0 && (
           <div className="text-center py-10 text-gray-500">
             Nenhum item encontrado.
@@ -176,80 +191,91 @@ export function GerenciarProdutos() {
               <h3 className="text-xl font-bold text-slate-800">
                 {isEditing ? "Editar Produto" : "Novo Produto"}
               </h3>
-              <button onClick={() => setIsModalOpen(false)} className="text-gray-400 hover:text-gray-600">
+              <button
+                onClick={() => setIsModalOpen(false)}
+                className="text-gray-400 hover:text-gray-600"
+              >
                 <X size={24} />
               </button>
             </div>
 
             <form onSubmit={handleSave} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Nome do Item *</label>
-                <input 
-                  type="text" 
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Nome do Item *
+                </label>
+                <input
+                  type="text"
                   required
                   className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-brand-yellow outline-none"
                   value={formData.name}
-                  onChange={(e) => setFormData({...formData, name: e.target.value})}
+                  onChange={(e) =>
+                    setFormData({ ...formData, name: e.target.value })
+                  }
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Preço (R$) *</label>
-                  <input 
-                    type="number" 
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Preço (R$) *
+                  </label>
+                  <input
+                    type="number"
                     step="0.01"
                     required
                     className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-brand-yellow outline-none"
                     value={formData.price}
-                    onChange={(e) => setFormData({...formData, price: e.target.value})}
+                    onChange={(e) =>
+                      setFormData({ ...formData, price: e.target.value })
+                    }
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Categoria *</label>
-                  <select 
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Categoria *
+                  </label>
+                  <select
                     className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-brand-yellow outline-none bg-white"
                     value={formData.category}
-                    onChange={(e) => setFormData({...formData, category: e.target.value})}
+                    onChange={(e) =>
+                      setFormData({ ...formData, category: e.target.value })
+                    }
                   >
-                    {categories.filter(c => c.id !== 'home').map(cat => (
-                      <option key={cat.id} value={cat.id}>{cat.label}</option>
-                    ))}
+                    {categories
+                      .filter((c) => c.id !== "home")
+                      .map((cat) => (
+                        <option key={cat.id} value={cat.id}>
+                          {cat.label}
+                        </option>
+                      ))}
                   </select>
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Descrição</label>
-                <textarea 
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Descrição
+                </label>
+                <textarea
                   rows="3"
                   className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-brand-yellow outline-none resize-none"
                   value={formData.description}
-                  onChange={(e) => setFormData({...formData, description: e.target.value})}
+                  onChange={(e) =>
+                    setFormData({ ...formData, description: e.target.value })
+                  }
                 ></textarea>
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">URL da Imagem</label>
-                <input 
-                  type="text" 
-                  placeholder="/produtos/exemplo.jpg"
-                  className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-brand-yellow outline-none"
-                  value={formData.image}
-                  onChange={(e) => setFormData({...formData, image: e.target.value})}
-                />
-                <p className="text-xs text-gray-400 mt-1">Use imagens da pasta /public/produtos/</p>
-              </div>
-
               <div className="flex justify-end gap-3 pt-4">
-                <button 
+                <button
                   type="button"
                   onClick={() => setIsModalOpen(false)}
                   className="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg font-medium"
                 >
                   Cancelar
                 </button>
-                <button 
+                <button
                   type="submit"
                   className="px-6 py-2 bg-green-600 text-white rounded-lg font-bold hover:bg-green-700 flex items-center gap-2"
                 >
@@ -261,7 +287,6 @@ export function GerenciarProdutos() {
           </div>
         </div>
       )}
-
     </div>
   );
 }
