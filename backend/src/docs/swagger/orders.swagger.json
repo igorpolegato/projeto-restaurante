@@ -1,0 +1,73 @@
+{
+  "tags": [
+    { "name": "Pedidos", "description": "Gerenciamento de pedidos" }
+  ],
+  "paths": {
+    "/v1/orders": {
+      "get": {
+        "tags": ["Pedidos"],
+        "summary": "Listar pedidos",
+        "responses": {
+          "200": { "description": "Lista de pedidos" }
+        }
+      }
+    },
+    "/v1/orders/{id}": {
+      "get": {
+        "tags": ["Pedidos"],
+        "summary": "Buscar pedido",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Pedido encontrado" }
+        }
+      }
+    },
+    "/v1/orders/new": {
+      "post": {
+        "tags": ["Pedidos"],
+        "summary": "Criar pedido",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/NewOrder" }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Pedido criado" }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "OrderItem": {
+        "type": "object",
+        "required": ["id", "quantity"],
+        "properties": {
+          "id": { "type": "integer" },
+          "quantity": { "type": "integer" }
+        }
+      },
+      "NewOrder": {
+        "type": "object",
+        "required": ["customer_id", "items"],
+        "properties": {
+          "customer_id": { "type": "integer" },
+          "items": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/OrderItem" }
+          }
+        }
+      }
+    }
+  }
+}

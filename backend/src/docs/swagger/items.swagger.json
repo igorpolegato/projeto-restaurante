@@ -1,0 +1,68 @@
+{
+  "tags": [
+    { "name": "Itens", "description": "Gerenciamento de itens" }
+  ],
+  "paths": {
+    "/v1/items": {
+      "get": {
+        "tags": ["Itens"],
+        "summary": "Listar itens",
+        "responses": {
+          "200": { "description": "Lista de itens" }
+        }
+      }
+    },
+    "/v1/items/{id}": {
+      "get": {
+        "tags": ["Itens"],
+        "summary": "Buscar item por ID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Item encontrado" }
+        }
+      }
+    },
+    "/v1/items/new": {
+      "post": {
+        "tags": ["Itens"],
+        "summary": "Criar novo item",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/NewItem" }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Item criado" }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "NewItem": {
+        "type": "object",
+        "required": ["name", "price", "description", "image", "categories"],
+        "properties": {
+          "name": { "type": "string", "example": "Produto 1" },
+          "price": { "type": "number", "example": 20 },
+          "description": { "type": "string" },
+          "image": { "type": "string" },
+          "categories": {
+            "type": "array",
+            "items": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

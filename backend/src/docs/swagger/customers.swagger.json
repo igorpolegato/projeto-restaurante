@@ -1,0 +1,38 @@
+{
+  "tags": [
+    { "name": "Clientes", "description": "Gerenciamento de clientes" }
+  ],
+  "paths": {
+    "/v1/customers/new": {
+      "post": {
+        "tags": ["Clientes"],
+        "summary": "Criar novo cliente",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/NewCustomer" }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Cliente criado com sucesso" }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "NewCustomer": {
+        "type": "object",
+        "required": ["name"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "João da Silva"
+          }
+        }
+      }
+    }
+  }
+}
