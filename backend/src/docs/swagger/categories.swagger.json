@@ -1,0 +1,44 @@
+{
+  "tags": [
+    { "name": "Categorias", "description": "Gerenciamento de categorias" }
+  ],
+  "paths": {
+    "/v1/categories": {
+      "get": {
+        "tags": ["Categorias"],
+        "summary": "Listar categorias",
+        "responses": {
+          "200": { "description": "Lista de categorias" }
+        }
+      }
+    },
+    "/v1/categories/new": {
+      "post": {
+        "tags": ["Categorias"],
+        "summary": "Criar categoria",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/NewCategory" }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Categoria criada" }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "NewCategory": {
+        "type": "object",
+        "required": ["name"],
+        "properties": {
+          "name": { "type": "string", "example": "Espetos" }
+        }
+      }
+    }
+  }
+}
