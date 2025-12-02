@@ -20,14 +20,10 @@
     "multer": "^2.0.2",
     "pg": "^8.16.3",
     "pg-hstore": "^2.3.4",
-<<<<<<< HEAD
     "pm2": "^6.0.14",
-    "sequelize": "^6.37.7"
-=======
     "sequelize": "^6.37.7",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1"
->>>>>>> fc6f7aa154b3220a3962053c7f22bca2fe1664f4
   },
   "devDependencies": {
     "@types/cors": "^2.8.19",
