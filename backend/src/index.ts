@@ -12,7 +12,8 @@ const corsOptions: CorsOptions = {
   origin: [
     'http://localhost:3000',
     'http://localhost:5174',
-    'https://quiosque.igorpolegato.com.br'
+    'https://quiosque.igorpolegato.com.br',
+    'https://app-quiosque.igorpolegato.com.br'
   ],
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
